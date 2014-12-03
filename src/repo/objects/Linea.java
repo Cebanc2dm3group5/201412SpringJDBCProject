@@ -1,6 +1,8 @@
 package repo.objects;
 
-public class Linea {
+import java.io.Serializable;
+
+public class Linea implements Serializable{
 	
 	//private static final long serialVersionUID = 1L;
 	private int albaran, linea, articulo, proveedor, cantidad, descuento;
