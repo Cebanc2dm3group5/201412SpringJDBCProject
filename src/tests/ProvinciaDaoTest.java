@@ -1,3 +1,4 @@
+package tests;
 import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
 
 import repo.interfaces.ProvinciaDao;
