@@ -6,17 +6,28 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
+import repo.access.ProvinciaDaoImpl.ItemRowMapper;
 import repo.interfaces.LineaDao;
 import repo.objects.Linea;
+import repo.objects.Provincia;
 
 public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao {
 
 	public Linea getLinea(int lin) {
 
-		Linea linea = null;
+		StringBuffer sql = new StringBuffer();
 
-		return linea;
+		sql
+			.append(" SELECT linea, articulo, albaran, cantidad, proveedor, precio")
+			.append(" FROM ").append("lineas")
+			.append(" WHERE linea = ?");
 
+		Object[] params = new Object[] { lin };
+
+		Linea li = (Linea) getJdbcTemplate().queryForObject( sql.toString(), params, new ItemRowMapper());
+
+		
+		return li;
 	}
 
 	public void updateLinea(Linea linea) {
@@ -37,10 +48,10 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao {
 		StringBuffer sql = new StringBuffer();
 
 		sql.append("INSERT INTO ").append("lineas")
-				.append(" (precio, articulo, albaran, cantidad, proveedor) ")
-				.append("VALUES(?,?,?,?,?)");
+				.append(" (linea, precio, articulo, albaran, cantidad, proveedor) ")
+				.append("VALUES(?,?,?,?,?,?)");
 
-		Object[] params = new Object[] { linea.getPrecio(),
+		Object[] params = new Object[] { linea.getLinea(), linea.getPrecio(),
 				linea.getArticulo(), linea.getAlbaran(), linea.getCantidad(), linea.getProveedor()};
 
 		getJdbcTemplate().update(sql.toString(), params);
@@ -48,6 +59,15 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao {
 
 	public void deleteLinea(int linea) {
 
+ 		StringBuffer sql = new StringBuffer();
+ 		
+ 		sql
+ 		.append("DELETE FROM ").append("lineas")
+ 		.append(" WHERE linea = ? ");
+ 		
+ 		Object[] params = new Object[] {linea};
+ 		
+ 		getJdbcTemplate().update(sql.toString(), params);
 	}
 
 	class ItemRowMapper implements RowMapper {
