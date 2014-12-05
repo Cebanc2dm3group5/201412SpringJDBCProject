@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import repo.interfaces.LineaDao;
 import repo.objects.Linea;
 
-public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao{
+public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao {
 
 	public Linea getLinea(int lin) {
 
@@ -20,31 +20,33 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao{
 	}
 
 	public void updateLinea(Linea linea) {
-		 StringBuffer sql = new StringBuffer();
-			sql
-			.append("UPDATE ").append("lineas")
-			.append(" SET precio = ?, ")
-			.append("articulo = ?, ")
-			.append("albaran = ?, ")
-			.append("cantidad = ?, ")
-			.append("proveedor = ?")
-			.append(" WHERE linea = ?");
-			
-			Object[] params = new Object[] {
-					
-					linea.getPrecio(),
-					linea.getLinea()
-				};
-			
-			getJdbcTemplate().update(sql.toString(), params);
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE ").append("lineas").append(" SET precio = ?, ")
+				.append("articulo = ?, ").append("albaran = ?, ")
+				.append("cantidad = ?, ").append("proveedor = ?")
+				.append(" WHERE linea = ?");
+
+		Object[] params = new Object[] {
+
+		linea.getPrecio(), linea.getArticulo(), linea.getAlbaran(), linea.getCantidad(), linea.getProveedor(), linea.getLinea() };
+
+		getJdbcTemplate().update(sql.toString(), params);
 	}
 
 	public void insertLinea(Linea linea) {
+		StringBuffer sql = new StringBuffer();
 
+		sql.append("INSERT INTO ").append("lineas")
+				.append(" (precio, articulo, albaran, cantidad, proveedor) ")
+				.append("VALUES(?,?,?,?,?)");
+
+		Object[] params = new Object[] { linea.getPrecio(),
+				linea.getArticulo(), linea.getAlbaran(), linea.getCantidad(), linea.getProveedor()};
+
+		getJdbcTemplate().update(sql.toString(), params);
 	}
 
 	public void deleteLinea(int linea) {
-
 
 	}
 
@@ -61,8 +63,6 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao{
 			li.setDescuento(rs.getInt("descuento"));
 			li.setProveedor(rs.getInt("proveedor"));
 			li.setPrecio(rs.getDouble("precio"));
-
-
 
 			return li;
 		}
