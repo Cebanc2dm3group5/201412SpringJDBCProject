@@ -20,8 +20,23 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao{
 	}
 
 	public void updateLinea(Linea linea) {
-
-
+		 StringBuffer sql = new StringBuffer();
+			sql
+			.append("UPDATE ").append("lineas")
+			.append(" SET precio = ?, ")
+			.append("articulo = ?, ")
+			.append("albaran = ?, ")
+			.append("cantidad = ?, ")
+			.append("proveedor = ?")
+			.append(" WHERE linea = ?");
+			
+			Object[] params = new Object[] {
+					
+					linea.getPrecio(),
+					linea.getLinea()
+				};
+			
+			getJdbcTemplate().update(sql.toString(), params);
 	}
 
 	public void insertLinea(Linea linea) {
@@ -33,19 +48,23 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao{
 
 	}
 
-	/*class ItemRowMapper implements RowMapper {
+	class ItemRowMapper implements RowMapper {
 
 		public Object mapRow(ResultSet rs, int index) throws SQLException {
 
-			Provincia it = new Provincia();
+			Linea li = new Linea();
 
-			it.setProvincia(rs.getInt("provincia"));
-			it.setDescripcion(rs.getString("descripcion"));
-			it.setPrefijo(new Integer(rs.getInt("prefijo")));
+			li.setLinea(rs.getInt("linea"));
+			li.setArticulo(rs.getInt("articulo"));
+			li.setAlbaran(new Integer(rs.getInt("albaran")));
+			li.setCantidad(rs.getInt("cantidad"));
+			li.setDescuento(rs.getInt("descuento"));
+			li.setProveedor(rs.getInt("proveedor"));
+			li.setPrecio(rs.getDouble("precio"));
 
 
 
-			return it;
+			return li;
 		}
-	}*/
+	}
 }
