@@ -4,8 +4,8 @@ import org.springframework.test.AbstractTransactionalDataSourceSpringContextTest
 
 import repo.interfaces.LineaDao;
 import repo.objects.Linea;
-import repo.objects.Provincia;
 
+@SuppressWarnings("deprecation")
 public class LineaDaoTest extends
 		AbstractTransactionalDataSourceSpringContextTests {
 
@@ -13,6 +13,11 @@ public class LineaDaoTest extends
 
 	public void setLineaDao(LineaDao lineaDao) {
 		this.lineaDao = lineaDao;
+	}
+	
+	protected String[] getConfigLocations() {
+		this.setAutowireMode(AUTOWIRE_BY_NAME);
+		return new String[] { "repo/context/Context-testLinea.xml" };
 	}
 
 	public void testInsertLinea() {
