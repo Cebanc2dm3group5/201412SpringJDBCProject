@@ -44,7 +44,16 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao{
 	}
 
 	public void deleteLinea(int linea) {
-
+		
+		StringBuffer sql = new StringBuffer();
+		
+		sql
+		.append("DELETE FROM ").append("lineas")
+		.append(" WHERE linea = ? ");
+		
+		Object[] params = new Object[] {linea};
+		
+		getJdbcTemplate().update(sql.toString(), params);
 
 	}
 
@@ -61,8 +70,6 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao{
 			li.setDescuento(rs.getInt("descuento"));
 			li.setProveedor(rs.getInt("proveedor"));
 			li.setPrecio(rs.getDouble("precio"));
-
-
 
 			return li;
 		}
