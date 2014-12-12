@@ -11,16 +11,16 @@ import repo.objects.Linea;
 
 public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao {
 
-	public Linea getLinea(int lin) {
+	public Linea getLinea(int lin, int alb) {
 
 		StringBuffer sql = new StringBuffer();
 
 		sql
 			.append(" SELECT *")
 			.append(" FROM ").append("lineas")
-			.append(" WHERE linea = ?");
+			.append(" WHERE linea = ? AND albaran = ?");
 
-		Object[] params = new Object[] { lin };
+		Object[] params = new Object[] { lin, alb };
 
 		Linea li = (Linea) getJdbcTemplate().queryForObject( sql.toString(), params, new ItemRowMapper());
 
@@ -33,11 +33,11 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao {
 		sql.append("UPDATE ").append("lineas").append(" SET precio = ?, ")
 				.append("articulo = ?, ").append("albaran = ?, ")
 				.append("cantidad = ?, ").append("proveedor = ?, ").append("descuento = ?")
-				.append(" WHERE linea = ?");
+				.append(" WHERE linea = ? and albaran = ?");
 
 		Object[] params = new Object[] {
 
-		linea.getPrecio(), linea.getArticulo(), linea.getAlbaran(), linea.getCantidad(), linea.getProveedor(), linea.getDescuento(), linea.getLinea() };
+		linea.getPrecio(), linea.getArticulo(), linea.getAlbaran(), linea.getCantidad(), linea.getProveedor(), linea.getDescuento(), linea.getLinea(), linea.getAlbaran() };
 
 		getJdbcTemplate().update(sql.toString(), params);
 	}
@@ -55,15 +55,15 @@ public class LineaDaoImpl extends JdbcDaoSupport implements LineaDao {
 		getJdbcTemplate().update(sql.toString(), params);
 	}
 
-	public void deleteLinea(int linea) {
+	public void deleteLinea(int linea, int alb) {
 
  		StringBuffer sql = new StringBuffer();
  		
  		sql
  		.append("DELETE FROM ").append("lineas")
- 		.append(" WHERE linea = ? ");
+ 		.append(" WHERE linea = ? AND albaran = ? ");
  		
- 		Object[] params = new Object[] {linea};
+ 		Object[] params = new Object[] {linea, alb};
  		
  		getJdbcTemplate().update(sql.toString(), params);
 	}

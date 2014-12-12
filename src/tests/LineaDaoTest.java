@@ -33,7 +33,7 @@ public class LineaDaoTest extends
 
 		lineaDao.insertLinea(linea);
 
-		Linea lineaResult = lineaDao.getLinea(linea.getLinea());
+		Linea lineaResult = lineaDao.getLinea(linea.getLinea(), linea.getAlbaran());
 
 		assertEquals(linea.getLinea(), lineaResult.getLinea());
 
@@ -51,7 +51,7 @@ public class LineaDaoTest extends
 
 		lineaDao.insertLinea(linea);
 
-		Linea lineaResult = lineaDao.getLinea(linea.getLinea());
+		Linea lineaResult = lineaDao.getLinea(linea.getLinea(), linea.getAlbaran());
 		assertNotNull(lineaResult);
 	}
 	
@@ -79,7 +79,7 @@ public class LineaDaoTest extends
 
 		lineaDao.updateLinea(linea2);
 
-		Linea lineaResult = lineaDao.getLinea(linea2.getLinea());
+		Linea lineaResult = lineaDao.getLinea(linea2.getLinea(), linea.getAlbaran());
 		assertEquals(lineaResult.getCantidad(), 50);
 	}
 	
@@ -96,7 +96,8 @@ public class LineaDaoTest extends
 		lineaDao.insertLinea(linea);
 
 		int lineaToDelete = 9999;
-		lineaDao.deleteLinea(lineaToDelete);
+		int albaranToDelete = 1;
+		lineaDao.deleteLinea(lineaToDelete, albaranToDelete);
 
 		// si la ejecucion llega aqui significa que el delete se ha efectuado
 		// correctamente
