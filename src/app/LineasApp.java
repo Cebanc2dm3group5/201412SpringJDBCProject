@@ -22,8 +22,11 @@ public class LineasApp {
 	private static void chooseWay(int opt) {
 		switch (opt){
 		case 0: LineasAccess.endProgram();
+		break;
 		case 1: LineasAccess.addLinea();
+		break;
 		case 2: LineasAccess.updateLinea();
+		break;
 		}
 	}
 
