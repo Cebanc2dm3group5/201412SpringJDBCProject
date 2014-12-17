@@ -19,7 +19,7 @@ public class InputRepo {
 					System.out.println("\nDebe introducir una opción correcta. Vuelva a intentarlo.|n");
 					sc.nextLine();
 				}
-				
+
 			}catch(InputMismatchException e){
 				System.out.println("\nDebe introducir un número entero. Vuelva a intentarlo.\n");
 				sc.nextLine();
@@ -28,8 +28,8 @@ public class InputRepo {
 		return res;
 
 	}
-	
-	
+
+
 	public static String askString(String msg) {
 		Scanner sc = new Scanner(System.in);
 		System.out.print(msg + ": ");
@@ -53,8 +53,8 @@ public class InputRepo {
 		return res;
 
 	}
-	
-	
+
+
 	public static double askDouble(String msg) {
 		Scanner sc = new Scanner(System.in);
 		boolean correct = false;
@@ -72,7 +72,22 @@ public class InputRepo {
 		return res;
 
 	}
-	
-	
+
+	public static boolean askBoolean(String msg){
+
+		String res = "";
+
+		while (res.charAt(0) != 'S' && res.charAt(0) != 'N'){
+
+			res = askString(msg).toUpperCase();
+
+		}
+
+		if (res.charAt(0) == 'S')
+			return true;
+		else
+			return false;
+
+	}
 
 }

@@ -27,6 +27,10 @@ public class LineasApp {
 		break;
 		case 2: LineasAccess.updateLinea();
 		break;
+		case 3: LineasAccess.deleteLinea();
+		break;
+		case 4: LineasAccess.consultLinea();
+		break;
 		}
 	}
 
